@@ -3,7 +3,13 @@ import gsap from "gsap-trial";
 import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
 import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
 import { useGSAP } from "@gsap/react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import "./App.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
@@ -14,11 +20,16 @@ function App() {
 
   useGSAP(
     () => {
-      // create the smooth scroller FIRST!
       smoother.current = ScrollSmoother.create({
-        smooth: 2, // seconds it takes to "catch up" to native scroll position
-        effects: true, // look for data-speed and data-lag attributes on elements and animate accordingly
+        smooth: 2,
+        effects: true,
       });
+
+      // So you can observe the scrollY position
+      const handleScroll = () => {
+        console.log(window.scrollY);
+      };
+      window.addEventListener("scroll", handleScroll);
     },
     { scope: main }
   );
@@ -34,7 +45,8 @@ function App() {
                 Open
               </DialogTrigger>
               <DialogContent className="flex flex-col w-full">
-                <div>
+                <DialogTitle>Lorem</DialogTitle>
+                <DialogDescription>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -43,13 +55,11 @@ function App() {
                   dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                   cupidatat non proident, sunt in culpa qui officia deserunt
                   mollit anim id est laborum.
-                </div>
+                </DialogDescription>
               </DialogContent>
             </Dialog>
           </div>
           <div className="h-screen w-full bg-green-500">c</div>
-
-          <div className="line"></div>
         </div>
       </div>
     </>

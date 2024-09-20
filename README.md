@@ -1,50 +1,13 @@
-# React + TypeScript + Vite
+# GSAP ScrollSmoother Jump Bug
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I've created a simple page with three sections and a button that opens a dialog. If you scroll to the button, let the smoother come to a complete stop, open the dialog, close it, and immediately scroll down, it jumps.
 
-Currently, two official plugins are available:
+## Observations
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. If the page is still scrolling when you open the dialog, it doesn't happen.
+2. The window.scrollY property is correct when console.logged. It's the scrollSmoothers transform value that jumps the page back up.
+3. If you close the dialog, wait a few seconds, then scroll it doesn't jump.
 
-## Expanding the ESLint configuration
+## Question
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+What is causing this jump behavior? Is it a bug?
